@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="GBK">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0">
+	<title>Phaser</title>
+    <style>
+        *{margin:0;padding:0}
+        html, body
+        {
+            -webkit-text-size-adjust:none;
+            overflow: hidden;
+            height:100%;
+        }
+        #cover{
+            position: absolute;
+            left:0;
+            top:0;
+            right:0;
+            bottom:0;
+            z-index: 2;
+            background-color: rgba(0,0,0,.8);
+            display: none;
+        }
+        #login{
+            width:14rem;
+            height:10.15rem;
+            background-color: #0097bd;
+            background-size: 15.1rem 10.15rem;
+            position: absolute;
+            left:50%;
+            top:50%;
+            margin-left:-7rem;
+            margin-top:-7.075rem;
+            -webkit-border-radius:.5rem;
+        }
+        #login input.ipt{
+            width:10.2rem;
+            height:1.5rem;
+            position: absolute;
+            border: none;
+            border: 2px solid #00596f;
+            color:#000000;
+            font-size:.7rem;
+            line-height: 1.3rem;
+            text-indent: .2rem;
+            background-color:#ffffff
+        }
+        input::-webkit-input-placeholder {
+		    color: #000000;
+		}
+        #name{
+            left:2rem;
+            top:1.7rem;
+        }
+        #phone{
+            left:2rem;
+            top:4.2rem;
+        }
+        button#subBtn{
+            width:7.05rem;
+            height:1.8rem;
+            background-color: #f97901;
+            background-size: 7.05rem 2.275rem;
+            position: absolute;
+            left:3.5rem;
+            top:7.1rem;
+            border: none;
+            font-size:.7rem;
+            color:#fff;
+            -webkit-border-radius:.5rem;
+        }
+    </style>
+    <script>
+    	(function(doc,win){var docEl=doc.documentElement,resizeEvt='orientationchange'in window?'orientationchange':'resize',recalc=function(){var clientWidth=docEl.clientWidth;if(!clientWidth)return;docEl.style.fontSize=20*(clientWidth/375)+'px'};if(!doc.addEventListener)return;win.addEventListener(resizeEvt,recalc,false);doc.addEventListener('DOMContentLoaded',recalc,false)})(document,window);
+    </script>
+    <script src="phaser.2.4.4.min.js"></script>
+    <script src="Boot.js"></script>
+    <script src="Preloader.js"></script>
+    <script src="UI.js"></script>
+    <script src="MainMenu.js"></script>
+    <script src="Game.js"></script>
+    <script src="Result.js"></script>
+    <script src="MyPoil.js"></script>
+</head>
+<body style="background-color: #000">
+	<div id="game"></div>
+	
+	<div id="cover">
+        <div id="login">
+            <div class="frm"><input type="text" id="name" class="ipt" placeholder="姓名"/></div>
+            <div class="frm"><input type="text" id="phone" class="ipt" placeholder="电话"/></div>
+            <button id="subBtn">提交</button>
+        </div>
+    </div>
+<script>
+
+	var ispoil = false;
+	var poil = '玛莎拉蒂一辆';
+	var islogin = false;
+
+	document.getElementById('game').style.height = document.body.clientHeight + 'px';
+    var game = new Phaser.Game(750, 1206, Phaser.CANVAS, 'game');
+	    game.state.add('Boot', MyGame.Boot);
+	    game.state.add('Preloader', MyGame.Preloader);
+	    game.state.add('MainMenu', MyGame.MainMenu);
+	    game.state.add('Game', MyGame.Game);
+	    game.state.add('Result', MyGame.Result);
+	    game.state.add('MyPoil', MyGame.MyPoil);
+	    game.state.start('Boot');
+	    
+	
+	document.getElementById('subBtn').addEventListener('touchend',function(){
+		game.state.start("Game");
+		document.getElementById('cover').style.display = 'none'
+	},false)
+	
+</script>
+<script src="inpMusic.js"></script>
+</body>
+</html>
